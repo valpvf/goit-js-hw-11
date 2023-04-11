@@ -4,6 +4,7 @@ import { SearchQuery } from './searchQuery.js';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
+let query = '';
 const searchQuery = new SearchQuery();
 
 const refs = {
@@ -25,7 +26,7 @@ async function onFormSubmit(evt) {
   }
   searchQuery.page = 1;
   evt.currentTarget.reset();
-  
+
   const data = await searchQuery.onQuerySearch(query);
   try {
     if (data.hits.length === 0) {
@@ -46,7 +47,7 @@ async function onFormSubmit(evt) {
 async function onLoadMoreClick(evt) {
   searchQuery.page += 1;
   refs.loadMoreEl.classList.add('is-hidden');
-  
+
   const data = await searchQuery.onQuerySearch(query);
   try {
     endOfSearch(data, searchQuery);

@@ -24,6 +24,6 @@ export class SearchQuery {
     }&${params}`;
 
     let response = await axios.get(end_point);
-      return response.data;
+    return response.data;
   }
 }

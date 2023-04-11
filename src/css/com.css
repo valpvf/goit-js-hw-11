@@ -1,0 +1,98 @@
+@import '~node_modules/modern-normalize/modern-normalize.css';
+
+:root {
+    --width: calc((95vw - 3 * 12px) / 4);
+    --font: calc(0.012 * 95vw);
+}
+
+.search-form {
+    position: relative;
+    width: 300px;
+    margin: 10px auto 20px;
+    border: .5px solid #ddd3d3a3;
+    border-radius: 10px;
+}
+
+input,
+button {
+    border: none;
+    outline: none;
+    border-radius: 3px;
+}
+
+input {
+    width: 100%;
+    height: 42px;
+    background: #F9F0DA;
+    padding-left: 15px;
+}
+
+button {
+    height: 26px;
+    width: 26px;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    /* background: #fcfcfc; */
+    cursor: pointer;
+}
+
+button:before {
+    content: ;
+    font-family: FontAwesome;
+    /* color: #ffffff; */
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.photo-item {}
+
+.wrap {
+    width: var(--width);
+    height: calc(var(--width) * 0.75);
+}
+
+.photo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 0 0;
+}
+
+.photo-link {
+    text-decoration: none;
+}
+
+.info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    font-size: var(--font);
+}
+
+.info-item {
+    text-align: center;
+}
+
+.load-more {
+    display: block;
+    position: relative;
+    margin: 20px auto 10px;
+    width: 100px;
+    height: 40px;
+    background-color: #483ce7;
+    color:rgb(255, 208, 132);
+    border-radius: 10px;    
+}
+.is-hidden {
+opacity: 0;
+}

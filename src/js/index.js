@@ -36,24 +36,34 @@ async function onFormSubmit(evt) {
       refs.galleryEl.innerHTML = '';
       return;
     }
+    Notify.success(`Hooray! We found ${data.totalHits} images.`);
     endOfSearch(data, searchQuery);
     refs.galleryEl.insertAdjacentHTML('beforeend', onMarkup(data.hits));
-    addLightbox();
+    refreshLightbox();
   } catch (data) {
     Notify.failure(`Whoops! ${data.message}`);
   }
 }
 
+let lightbox = new SimpleLightbox('.gallery a', {
+  captions: true,
+  captionSelector: 'img',
+  captionType: 'attr',
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+  captionDelay: 250,
+  scrollZoom: false,
+});
+
 async function onLoadMoreClick(evt) {
   searchQuery.page += 1;
   refs.loadMoreEl.classList.add('is-hidden');
-
   try {
     const data = await searchQuery.onQuerySearch(query);
     endOfSearch(data, searchQuery);
-    Notify.success(`Hooray! We found ${data.totalHits} images.`);
+
     refs.galleryEl.insertAdjacentHTML('beforeend', onMarkup(data.hits));
-    addLightbox();
+    refreshLightbox();
     onScrollPageUp();
   } catch (data) {
     Notify.failure(`Whoops! ${data.message}`);
@@ -108,15 +118,6 @@ function onScrollPageUp() {
   });
 }
 
-function addLightbox() {
-  let lightbox = new SimpleLightbox('.gallery a', {
-    captions: true,
-    captionSelector: 'img',
-    captionType: 'attr',
-    captionsData: 'alt',
-    captionPosition: 'bottom',
-    captionDelay: 250,
-    scrollZoom: false,
-  });
+function refreshLightbox() {
   lightbox.refresh();
 }

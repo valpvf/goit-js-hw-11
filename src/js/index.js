@@ -27,8 +27,8 @@ async function onFormSubmit(evt) {
   searchQuery.page = 1;
   evt.currentTarget.reset();
 
-  const data = await searchQuery.onQuerySearch(query);
   try {
+    const data = await searchQuery.onQuerySearch(query);
     if (data.hits.length === 0) {
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
@@ -39,8 +39,8 @@ async function onFormSubmit(evt) {
     endOfSearch(data, searchQuery);
     refs.galleryEl.insertAdjacentHTML('beforeend', onMarkup(data.hits));
     addLightbox();
-  } catch {
-    console.error();
+  } catch (data) {
+    Notify.failure(`Whoops! ${data.message}`);
   }
 }
 
@@ -48,15 +48,15 @@ async function onLoadMoreClick(evt) {
   searchQuery.page += 1;
   refs.loadMoreEl.classList.add('is-hidden');
 
-  const data = await searchQuery.onQuerySearch(query);
   try {
+    const data = await searchQuery.onQuerySearch(query);
     endOfSearch(data, searchQuery);
     Notify.success(`Hooray! We found ${data.totalHits} images.`);
     refs.galleryEl.insertAdjacentHTML('beforeend', onMarkup(data.hits));
     addLightbox();
     onScrollPageUp();
-  } catch {
-    console.error();
+  } catch (data) {
+    Notify.failure(`Whoops! ${data.message}`);
   }
 }
 
